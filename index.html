@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ЭкоКарта Таджикистана</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--green:#176b45;--mint:#e9f5ed;--ink:#183329;--gold:#e8b84b}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:#f7faf7;line-height:1.6}
+header{background:linear-gradient(120deg,#0d5138,#23865b);color:white;padding:52px 7% 42px}
+header .tag{display:inline-block;background:#ffffff22;border:1px solid #ffffff55;padding:5px 12px;border-radius:30px;font-size:13px}
+h1{font-size:clamp(32px,6vw,56px);line-height:1.08;margin:18px 0}
+header p{max-width:720px;font-size:18px;color:#e8f4eb}
+nav{display:flex;gap:20px;flex-wrap:wrap;padding:14px 7%;background:white;position:sticky;top:0;z-index:500;box-shadow:0 2px 10px #173a2510}
+nav a{color:var(--green);font-weight:bold;text-decoration:none}
+main{max-width:1150px;margin:auto;padding:30px 22px}
+section{margin:36px 0}.eyebrow{color:var(--green);font-weight:bold;text-transform:uppercase;letter-spacing:1px;font-size:12px}
+h2{font-size:29px;margin:5px 0 14px}.lead{font-size:17px;color:#4c6257;max-width:850px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;border:1px solid #e1ebe3;border-radius:16px;padding:20px;box-shadow:0 5px 18px #173a2508}
+.card h3{margin:5px 0 8px}.icon{font-size:26px}
+#map{height:490px;border-radius:18px;border:1px solid #d5e4d8;z-index:1}
+.mapnote{font-size:13px;color:#63756a;margin-top:8px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0;font-size:14px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px}
+.callout{background:var(--mint);border-left:4px solid var(--green);padding:18px 20px;border-radius:10px}
+footer{background:#123f2e;color:#eaf5ed;padding:28px 7%;margin-top:50px}
+footer a{color:#d5f2dd}.creators{font-size:18px;font-weight:bold}
+button{background:var(--green);color:white;border:0;padding:10px 15px;border-radius:9px;cursor:pointer}
+@media(max-width:600px){header{padding:38px 22px}#map{height:390px}nav{gap:12px}}
+</style></head>
+<body>
+<header>
+<span class="tag">ЭКОЛОГИЧЕСКИЙ ПРОЕКТ · ТАДЖИКИСТАН</span>
+<h1>ЭкоКарта<br>Таджикистана</h1>
+<p>Изучаем природу страны, экологические вызовы и территории, которые важно беречь. Знание об окружающей среде — первый шаг к её защите.</p>
+</header>
+<nav><a href="#about">Об экологии</a><a href="#map-section">Эко-карта</a><a href="#problems">Проблемы</a><a href="#actions">Что можем сделать</a><a href="#authors">Авторы</a></nav>
+<main>
+<section id="about"><div class="eyebrow">О проекте</div><h2>Почему экология важна?</h2>
+<p class="lead">Таджикистан известен высокими горами, ледниками, реками и разнообразными природными ландшафтами. Эти богатства обеспечивают людей водой, поддерживают сельское хозяйство и являются домом для множества видов растений и животных. Сохранение природы — общая ответственность государства, организаций и каждого жителя.</p>
+<div class="callout"><strong>Факт из доклада ООН:</strong> по данным Атласа изменений окружающей среды Таджикистана, опубликованного UNEP в сентябре 2025 года, среднегодовая температура в стране выросла примерно на 1,2 °C, а более 1 000 ледников исчезли за последние десятилетия. Эти данные показывают, почему важно беречь воду и горные экосистемы. <a href="https://www.unep.org/en/news-and-stories/press-release/tajikistans-melting-glaciers-put-water-resources-under-stress-unep" target="_blank" rel="noopener">Источник: UNEP</a>.</div>
+<div class="cards">
+<div class="card"><div class="icon">🏔️</div><h3>Горы и ледники</h3><p>Горные экосистемы и ледники имеют большое значение для водных ресурсов Центральной Азии. Изменение климата усиливает давление на них.</p></div>
+<div class="card"><div class="icon">💧</div><h3>Реки и вода</h3><p>Чистая вода необходима для здоровья людей, сельского хозяйства, энергетики и сохранения природных местообитаний.</p></div>
+<div class="card"><div class="icon">🌱</div><h3>Биоразнообразие</h3><p>Заповедники и национальные парки помогают сохранять редкие виды животных, растения и уникальные ландшафты.</p></div>
+</div></section>
+<section id="map-section"><div class="eyebrow">Интерактивная карта</div><h2>Экологические территории и примеры</h2>
+<p class="lead">Нажмите на метки, чтобы узнать, почему эти места важны для природы. Карта показывает учебные ориентиры, а не официальную оценку загрязнения или границы экологического риска.</p>
+<div class="legend"><span><i class="dot" style="background:#25834e"></i>Охраняемая территория</span><span><i class="dot" style="background:#2689bd"></i>Водные ресурсы</span><span><i class="dot" style="background:#d69b28"></i>Экологическая тема</span></div>
+<div id="map"></div><p class="mapnote">Карта загружается из OpenStreetMap. Точки являются ориентировочными; перед полевыми или научными работами проверяйте координаты и официальные данные.</p>
+</section>
+<section id="problems"><div class="eyebrow">Экологические вызовы</div><h2>На что стоит обратить внимание</h2>
+<div class="cards">
+<div class="card"><h3>Изменение климата</h3><p>Повышение температуры влияет на ледники, снежный покров, водный режим рек и устойчивость горных экосистем.</p></div>
+<div class="card"><h3>Отходы и пластик</h3><p>Несортированный мусор может загрязнять почву и водоёмы. Важны сокращение одноразового пластика, раздельный сбор и безопасная переработка.</p></div>
+<div class="card"><h3>Качество воздуха</h3><p>В городах на качество воздуха могут влиять транспорт, отопление, пыль и промышленные источники. Нужны наблюдения и доступные данные мониторинга.</p></div>
+<div class="card"><h3>Деградация земель</h3><p>Эрозия, чрезмерная нагрузка на пастбища и нерациональное использование почв снижают плодородие и устойчивость ландшафтов.</p></div>
+</div></section>
+<section id="actions"><div class="eyebrow">Действуем вместе</div><h2>Что может сделать школьник?</h2>
+<div class="callout"><ul><li>Не оставлять мусор в парках, горах и у водоёмов.</li><li>Использовать многоразовую бутылку и сумку.</li><li>Экономить воду и электроэнергию.</li><li>Участвовать в школьных экологических акциях и посадке местных растений.</li><li>Проверять информацию и сообщать о проблемах ответственным взрослым или местным службам.</li></ul></div>
+</section>
+<section><div class="eyebrow">Источники и полезные материалы</div><h2>Где изучать тему дальше</h2>
+<div class="card"><ul>
+<li><a href="https://www.unep.org/en/news-and-stories/press-release/tajikistans-melting-glaciers-put-water-resources-under-stress-unep" target="_blank" rel="noopener">UNEP — Атлас изменений окружающей среды Таджикистана (2025)</a></li>
+<li><a href="https://egov.tj/site/nature-tjk/documents/details/608?lang=en" target="_blank" rel="noopener">Государственная экологическая программа Таджикистана на 2023–2028 годы</a></li>
+<li><a href="https://www.worldbank.org/en/country/tajikistan" target="_blank" rel="noopener">Всемирный банк — материалы о Таджикистане</a></li>
+<li><a href="https://www.unep.org/" target="_blank" rel="noopener">Программа ООН по окружающей среде (UNEP)</a></li>
+<li><a href="https://www.protectedplanet.net/" target="_blank" rel="noopener">Protected Planet — база охраняемых территорий</a></li>
+<li><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap — картографическая основа</a></li>
+</ul><p class="mapnote">Материал носит образовательный характер. Он не заменяет официальные экологические измерения и государственные карты.</p></div>
+</section>
+<section id="authors"><div class="eyebrow">Команда проекта</div><h2>Создатели сайта</h2><div class="card"><p class="creators">Каримов Халил<br>Якубова Гульнора</p><p>Авторы образовательного проекта «ЭкоКарта Таджикистана».</p></div></section>
+</main>
+<footer><strong>ЭкоКарта Таджикистана</strong><br>Учебный экологический проект · Создатели: Каримов Халил и Якубова Гульнора</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map').setView([38.8,71.0],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+const points=[
+{p:[38.55,68.78],c:'#d69b28',t:'Душанбе',d:'Городская экологическая повестка: качество воздуха, транспорт, озеленение и обращение с отходами.'},
+{p:[38.25,72.0],c:'#25834e',t:'Таджикский национальный парк',d:'Крупная горная охраняемая территория в Памире. Важна для сохранения высокогорных ландшафтов и биоразнообразия.'},
+{p:[37.0,72.5],c:'#25834e',t:'Заповедник «Зоркуль»',d:'Высокогорная природная территория Памира, имеющая значение для охраны водно-болотных местообитаний и птиц.'},
+{p:[39.0,69.7],c:'#2689bd',t:'Сырдарья и водные ресурсы севера',d:'Речные экосистемы важны для водоснабжения, сельского хозяйства и природных местообитаний.'},
+{p:[37.7,68.8],c:'#2689bd',t:'Вахшская речная система',d:'Водные ресурсы имеют большое значение для населения, сельского хозяйства и энергетики.'},
+{p:[38.9,70.8],c:'#d69b28',t:'Фанские горы',d:'Горные экосистемы и озёра требуют бережного туризма и ответственного обращения с отходами.'}
+];
+points.forEach(x=>L.circleMarker(x.p,{radius:8,color:x.c,fillColor:x.c,fillOpacity:.9,weight:2}).addTo(map).bindPopup('<b>'+x.t+'</b><br>'+x.d));
+</script></body></html>
